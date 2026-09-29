@@ -1,0 +1,22 @@
+{
+  "routes": [
+    {"path": "/", "title": "Finwise — Personal finance, made clearer"},
+    {"path": "/login", "title": "Log in · Finwise"},
+    {"path": "/register", "title": "Create your account · Finwise"},
+    {"path": "/dashboard", "title": "Dashboard · Finwise"},
+    {"path": "/income", "title": "Income · Finwise"},
+    {"path": "/income/add", "title": "Add income · Finwise"},
+    {"path": "/income/:record_id/edit", "title": "Edit income · Finwise"},
+    {"path": "/expenses", "title": "Expenses · Finwise"},
+    {"path": "/expenses/add", "title": "Add expense · Finwise"},
+    {"path": "/expenses/:record_id/edit", "title": "Edit expense · Finwise"},
+    {"path": "/budget", "title": "Budget · Finwise"},
+    {"path": "/ai-advisor", "title": "AI Advisor · Finwise"},
+    {"path": "/reports", "title": "Reports · Finwise"},
+    {"path": "/reports/:month", "title": "Monthly report · Finwise"},
+    {"path": "/goals", "title": "Goals · Finwise"},
+    {"path": "/goals/add", "title": "Add savings goal · Finwise"},
+    {"path": "/goals/:record_id/edit", "title": "Edit savings goal · Finwise"},
+    {"path": "/profile", "title": "Profile · Finwise"}
+  ]
+}

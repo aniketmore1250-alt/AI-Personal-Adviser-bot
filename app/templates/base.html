@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{{ app_name }}{% endblock %}</title>
+  <meta name="description" content="A calm, practical AI-powered personal finance advisor for budgets, savings, and everyday money decisions.">
+  <meta property="og:title" content="{{ app_name }}">
+  <meta property="og:description" content="Turn financial activity into a clearer next step.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="{{ url_for('static', filename='assets/favicon.svg') }}" type="image/svg+xml">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
+  <script src="{{ url_for('static', filename='js/app.js') }}" defer></script>
+  {% block head %}{% endblock %}
+</head>
+<body class="{{ body_class|default('') }}">
+  {% if current_user.is_authenticated %}
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="{{ url_for('dashboard.index') }}"><img class="brand-logo" src="{{ url_for('static', filename='assets/logo.svg') }}" alt=""><span>finwise</span></a>
+      <p class="eyebrow sidebar-label">Your money, in focus</p>
+      <nav class="main-nav" aria-label="Primary navigation">
+        <a class="nav-link {% if request.path.startswith('/dashboard') %}active{% endif %}" href="{{ url_for('dashboard.index') }}"><span>⌂</span> Dashboard</a>
+        <a class="nav-link {% if request.path.startswith('/income') %}active{% endif %}" href="{{ url_for('income.index') }}"><span>↗</span> Income</a>
+        <a class="nav-link {% if request.path.startswith('/expenses') %}active{% endif %}" href="{{ url_for('expenses.index') }}"><span>↘</span> Expenses</a>
+        <a class="nav-link {% if request.path.startswith('/budget') %}active{% endif %}" href="{{ url_for('budget.index') }}"><span>▤</span> Budget</a>
+        <a class="nav-link {% if request.path.startswith('/ai-advisor') %}active{% endif %}" href="{{ url_for('ai.index') }}"><span>✦</span> AI Advisor</a>
+        <a class="nav-link {% if request.path.startswith('/reports') %}active{% endif %}" href="{{ url_for('reports.index') }}"><span>▥</span> Reports</a>
+        <a class="nav-link {% if request.path.startswith('/goals') %}active{% endif %}" href="{{ url_for('goals.index') }}"><span>◎</span> Goals</a>
+      </nav>
+      <div class="sidebar-bottom">
+        <a class="profile-chip" href="{{ url_for('profile.edit') }}"><span class="avatar">{{ current_user.name[:1]|upper }}</span><span><strong>{{ current_user.name }}</strong><small>{{ current_user.email }}</small></span></a>
+        <form action="{{ url_for('auth.logout') }}" method="post"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><button class="nav-link logout" type="submit"><span>↪</span> Log out</button></form>
+      </div>
+    </aside>
+    <main class="main-content">
+      <header class="mobile-header"><a class="brand" href="{{ url_for('dashboard.index') }}"><img class="brand-logo" src="{{ url_for('static', filename='assets/logo.svg') }}" alt=""><span>finwise</span></a><button class="icon-btn" data-sidebar-toggle aria-label="Open navigation">☰</button></header>
+      <div class="page-wrap">
+        {% include 'partials/flash.html' %}
+        {% block content %}{% endblock %}
+      </div>
+    </main>
+  </div>
+  {% else %}
+    {% include 'partials/flash.html' %}
+    {% block public_content %}{% endblock %}
+  {% endif %}
+</body>
+</html>
