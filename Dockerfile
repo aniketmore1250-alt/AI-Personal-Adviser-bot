@@ -11,6 +11,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY .
 
-EXPOSE 3000
+EXPOSE 1000
 
 CMD ["sh", "-c", "python -m gunicorn --bind 0.0.0.0:${PORT:-3000} --workers 2 --timeout 120 run:app"]
